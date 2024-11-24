@@ -3,10 +3,14 @@ const dotenv = require('dotenv');
 const connectDB = require('./config/db');
 const postRoutes = require('./routes/postRoutes');
 const errorHandler = require('./middleware/errorMiddleware');
+const cors = require('cors');
 
 dotenv.config(); // Load environment variables
 
 const app = express();
+
+// Middleware to handle CORS
+app.use(cors());
 
 // Middleware to parse JSON
 app.use(express.json());
