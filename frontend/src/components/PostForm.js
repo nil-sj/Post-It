@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { useHistory, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { createPost, updatePost, getPostById } from '../services/postService';
 
 const PostForm = () => {
     const [post, setPost] = useState({ title: '', content: '', author: '' });
     const { postId } = useParams();
-    const history = useHistory();
+    const navigate = useNavigate(); // Use useNavigate instead of useHistory
 
+    // Fetch post details if postId exists
     useEffect(() => {
         if (postId) {
             const fetchPost = async () => {
@@ -17,19 +18,21 @@ const PostForm = () => {
         }
     }, [postId]);
 
+    // Handle input changes
     const handleChange = (e) => {
         const { name, value } = e.target;
         setPost({ ...post, [name]: value });
     };
 
+    // Handle form submission
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (postId) {
-            await updatePost(postId, post);
+            await updatePost(postId, post); // Update an existing post
         } else {
-            await createPost(post);
+            await createPost(post); // Create a new post
         }
-        history.push('/');
+        navigate('/'); // Navigate to the home page after submission
     };
 
     return (

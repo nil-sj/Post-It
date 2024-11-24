@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import PostList from './components/PostList';
 import PostForm from './components/PostForm';
 import PostDetail from './components/PostDetail';
@@ -10,12 +10,12 @@ const App = () => {
     return (
         <Router>
             <Header />
-            <Switch>
-                <Route path="/" exact component={PostList} />
-                <Route path="/create" component={PostForm} />
-                <Route path="/posts/:postId" component={PostDetail} />
-                <Route path="/edit/:postId" component={PostForm} />
-          </Switch>
+            <Routes>
+                <Route path="/" element={<PostList />} />
+                <Route path="/create" element={<PostForm />} />
+                <Route path="/posts/:postId" element={<PostDetail />} />
+                <Route path="/edit/:postId" element={<PostForm />} />
+            </Routes>
         </Router>
     );
 };
